@@ -51,19 +51,25 @@ rl.on("close", function () {
 ```javascript
 function createAnswer() {
     let answer = Math.floor(Math.random() * 889 + 111);
-    while (
-        String(answer).includes("0") ||
-        !(
-            String(answer)[0] !== String(answer)[1] &&
-            String(answer)[1] !== String(answer)[2] &&
-            String(answer)[0] !== String(answer)[2]
-        )
-    ) {
+    return answer;
+}
+function isAnswerOverlapping(answer) {
+    String(answer)[0] !== String(answer)[1] &&
+    String(answer)[1] !== String(answer)[2] &&
+    String(answer)[0] !== String(answer)[2]
+        ? true
+        : false;
+}
+function hasAnswerZero(answer) {
+    String(answer).includes("0") ? false : true;
+}
+function finalAnswer() {
+    let answer = createAnswer();
+    while (isAnswerOverlapping(answer) || hasAnswerZero(answer)) {
         answer = Math.floor(Math.random() * 889 + 111);
     }
     return answer;
 }
-const answer = createAnswer();
 ```
 - 세자리 정수 중 하나를 뽑는다고 가정하고, 뽑을 수 있는 가장 작은 숫자 111부터 999까지 생성하여 answer 변수에 할당한다.
 - 예외처리1. 뽑은 숫자에 0이 들어있을 때
@@ -189,6 +195,6 @@ function hint(input) {
 <br><br>
 ## 보완해야 할 것
 - [hint](#최종-결과-출력) 출력 시 스트라이크 -> 볼의 순서로 출력되어 스트라이크가 없는 경우 볼이 한칸 띄어져서 출력됨.
-- [createAnswer()](#컴퓨터의-정답-생성) 10줄 넘음... 13줄...
+- [createAnswer()](#컴퓨터의-정답-생성) 10줄 넘음... 13줄... => 해결!
 - [createAnswer()](#컴퓨터의-정답-생성) 시 매번 다른 랜덤넘버 생성됨
 
