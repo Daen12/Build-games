@@ -150,7 +150,13 @@ function finalBall(input) {
 
 ### 4. finalStrike(input) : 최종 스트라이크를 계산
 ```javascript
-
+function finalStrike(input) {
+    if (strike(input)) {
+        return `${strike(input)} 스트라이크`;
+    } else {
+        return "";
+    }
+}
 ```
 - 스트라이크가 존재할 시
 - 스트라이크 개수를 문자열로 반환한다. ("0 스트라이크")
@@ -180,5 +186,4 @@ function hint(input) {
 - 힌트 출력 시 스트라이크 -> 볼의 순서로 출력되어 스트라이크가 없는 경우 볼이 한칸 띄어져서 출력됨.
 - createAnswer() 10줄 넘음... 13줄...
 - createAnswer() 시 매번 다른 랜덤넘버 생성됨
-- 
 
