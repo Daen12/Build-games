@@ -188,7 +188,7 @@ function hint(input) {
 
 <br><br>
 ## 보완해야 할 것
-- 힌트 출력 시 스트라이크 -> 볼의 순서로 출력되어 스트라이크가 없는 경우 볼이 한칸 띄어져서 출력됨.
-- createAnswer() 10줄 넘음... 13줄...
-- createAnswer() 시 매번 다른 랜덤넘버 생성됨
+- [hint](#-최종-결과-출력) 출력 시 스트라이크 -> 볼의 순서로 출력되어 스트라이크가 없는 경우 볼이 한칸 띄어져서 출력됨.
+- [createAnswer()](#1.-createAnswer()) 10줄 넘음... 13줄...
+- [createAnswer()](#1.-createAnswer()) 시 매번 다른 랜덤넘버 생성됨
 
