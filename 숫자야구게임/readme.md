@@ -103,7 +103,7 @@ function hasZero(input) {
 ```
 - 입력받은 숫자에 0이 포함된 경우 true, 아니면 false 반환하기
 
-<h2><a href="#forth">볼, 스트라이크 판별하기</a></h2>
+## 볼, 스트라이크 판별하기
 
 ### 1. ball(input) : 정답과 플레이어의 입력 숫자를 비교하여 **동일한 숫자**의 개수를 **모두 반환**
 ```javascript
