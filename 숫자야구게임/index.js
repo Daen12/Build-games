@@ -1,36 +1,42 @@
 //readline모듈의 rl객체는 이벤트 드리븐 방식으로 동작한다.
 //line은 한 줄이 입력되는 이벤트이고, close는 close()함수를 호출 시 발생하는 이벤트이다.
 //가장 기본이 되는 이벤트는 위 두개.
-const { create } = require("domain");
 const readline = require("readline");
+
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
 });
 function createAnswer() {
     let answer = Math.floor(Math.random() * 889 + 111);
-    while (
-        String(answer).includes("0") ||
-        !(
-            String(answer)[0] !== String(answer)[1] &&
-            String(answer)[1] !== String(answer)[2] &&
-            String(answer)[0] !== String(answer)[2]
-        )
-    ) {
+    return answer;
+}
+
+function isAnswerOverlapping(answer) {
+    String(answer)[0] !== String(answer)[1] &&
+    String(answer)[1] !== String(answer)[2] &&
+    String(answer)[0] !== String(answer)[2]
+        ? true
+        : false;
+}
+function hasAnswerZero(answer) {
+    String(answer).includes("0") ? false : true;
+}
+function finalAnswer() {
+    let answer = createAnswer();
+    while (isAnswerOverlapping(answer) || hasAnswerZero(answer)) {
         answer = Math.floor(Math.random() * 889 + 111);
     }
     return answer;
 }
-const answer = createAnswer();
-// createAnswer()
-// console.log(answer);
+// const answer = finalAnswer();
 //밖에서 랜덤넘버를 만든다음 모듈 안에서 이를 호출하여 이벤트 시행 시 실행되게 함.
 rl.setPrompt(`숫자를 입력하세요 :`);
 rl.prompt();
 rl.on("line", function (line) {
     const input = parseInt(line);
-    // console.log(createAnswer());
-    hint(input); //여기를 fixed answer변수를 쓸 수 있게 만들어보기!!!!!
+    const answer = finalAnswer();
+    hint(input);
     if (finalStrike(input) === "3 스트라이크") {
         rl.close();
     }
@@ -118,12 +124,3 @@ function hint(input) {
         console.log(`${finalStrike(input)} ${finalBall(input)}`); //요부분 스트라이크 없으면 볼이 한칸 띄어짐.
     }
 }
-// function printResult(input) {
-//     console.log(hint(input));
-//     console.log(answer);
-// if (finalStrike(input) === "3 스트라이크") {
-//     console.log("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-// }
-// return `${hint(input)}\n${guidemsg}`;
-
-// printResult(this.input);
