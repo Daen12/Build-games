@@ -3,7 +3,7 @@
 [링크 테스트](index.js)
 
 
-## 게임의 시작과 끝
+## 게임 시작 & 끝
 
 ### 1. 입력값 받기
 ```javascript
@@ -18,7 +18,7 @@ rl.prompt();
 rl.on("line", function (line) {
     const input = parseInt(line);
     // console.log(createAnswer());
-    printResult(input); //여기를 fixed answer변수를 쓸 수 있게 만들어보기!!!!!
+    printResult(input);
     if (finalStrike(input) === "3 스트라이크") {
         rl.close();
     }
@@ -41,7 +41,7 @@ rl.on("close", function () {
 - process.exit() 을 통해 게임을 종료한다.
 
 
-## 컴퓨터의 랜덤 넘버 생성
+## 컴퓨터의 정답 생성
 
 ### 1. createAnswer()
 ```javascript
@@ -133,4 +133,52 @@ function strike(input) {
 - countStrike 변수에 1을 더한 후
 - countStrike를 반환한다.
 
-### 3. finalBall(input) : 
+### 3. finalBall(input) : 최종 볼을 계산
+```javascript
+function finalBall(input) {
+    const hasBall = ball(input) - strike(input);
+    if (hasBall) {
+        return `${hasBall}볼`;
+    } else {
+        return "";
+    }
+}
+```
+- hasBall 변수에 실제 볼이 있는지(ball() - strike())를 계산하여 할당한다.
+- 만약 볼이 있으면 볼의 개수를 문자열로 반환하고 ("0볼")
+- 없으면 빈 문자열을 리턴한다.
+
+### 4. finalStrike(input) : 최종 스트라이크를 계산
+```javascript
+
+```
+- 스트라이크가 존재할 시
+- 스트라이크 개수를 문자열로 반환한다. ("0 스트라이크")
+
+
+## 정답과 비교한 최종 결과 출력
+
+### 1. hint(input) : 예외처리, 낫싱, 결과 계산
+```javascript
+
+function hint(input) {
+    if (overlap(input) || !isThreeDigits(input) || hasZero(input)) {
+        return "*** Invalid input ***";
+    } else if (!ball(input)) {
+        return "낫싱";
+    } else {
+        return `${finalStrike(input)} ${finalBall(input)}`;
+    }
+}
+```
+- 입력받은 수에 중복숫자가 있거나/ 숫자가 3개이거나/ 0이 포함된 경우 "*** invalid input***"을 반환한다.
+- 위 경우가 아니면서 볼이 아니면 "낫싱"을 반환한다.
+- 위 경우가 아니면 스트라이크, 볼의 순서대로 반환한다.
+
+
+## 보완해야 할 것
+- 힌트 출력 시 스트라이크 -> 볼의 순서로 출력되어 스트라이크가 없는 경우 볼이 한칸 띄어져서 출력됨.
+- createAnswer() 10줄 넘음... 13줄...
+- createAnswer() 시 매번 다른 랜덤넘버 생성됨
+- 
+
