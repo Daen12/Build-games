@@ -1,9 +1,3 @@
-## Adding a description
-
-this page is a testing page for adding description.
-
-### text size?
-
-# Test size
+# 1. 숫자야구게임
 
 [링크 테스트](index.js)

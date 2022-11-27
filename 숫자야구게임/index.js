@@ -1,12 +1,56 @@
-const input = 617;
-const answer = 723;
-// const answer = Math.floor(Math.random() * 889 + 111);
-// console.log("answer :" + answer);
+//readline모듈의 rl객체는 이벤트 드리븐 방식으로 동작한다.
+//line은 한 줄이 입력되는 이벤트이고, close는 close()함수를 호출 시 발생하는 이벤트이다.
+//가장 기본이 되는 이벤트는 위 두개.
+
+const readline = require("readline");
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+});
+function createAnswer() {
+    let answer = Math.floor(Math.random() * 889 + 111);
+    while (
+        String(answer).includes("0") ||
+        !(
+            String(answer)[0] !== String(answer)[1] &&
+            String(answer)[1] !== String(answer)[2] &&
+            String(answer)[0] !== String(answer)[2]
+        )
+    ) {
+        answer = Math.floor(Math.random() * 889 + 111);
+    }
+    return answer;
+}
+const answer = createAnswer();
+// createAnswer()
+// console.log(answer);
+//밖에서 랜덤넘버를 만든다음 모듈 안에서 이를 호출하여 이벤트 시행 시 실행되게 함.
+rl.setPrompt(`숫자를 입력하세요 :`);
+rl.prompt();
+rl.on("line", function (line) {
+    const input = parseInt(line);
+    // console.log(createAnswer());
+    printResult(input); //여기를 fixed answer변수를 쓸 수 있게 만들어보기!!!!!
+    if (finalStrike(input) === "3 스트라이크") {
+        rl.close();
+    }
+    rl.prompt();
+});
+rl.on("close", function () {
+    console.log("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    process.exit();
+});
+// function master(input, fixedAnswer) {
+//     fixedAnswer = fixedAnswer;
+//     printResult(input);
+// }
+
 //***예외처리***//
 function overlap(input) {
     const stringInput = String(input);
     return stringInput[0] !== stringInput[1] &&
-        stringInput[1] !== stringInput[2]
+        stringInput[1] !== stringInput[2] &&
+        stringInput[0] !== stringInput[2]
         ? false
         : true;
 }
@@ -75,9 +119,11 @@ function hint(input) {
 }
 function printResult(input) {
     console.log(hint(input));
-    if (finalStrike(input) === "3 스트라이크") {
-        console.log("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
-    }
+    console.log(answer);
+    // if (finalStrike(input) === "3 스트라이크") {
+    //     console.log("3개의 숫자를 모두 맞히셨습니다! 게임 종료");
+    // }
     // return `${hint(input)}\n${guidemsg}`;
 }
-printResult(input);
+
+// printResult(this.input);
