@@ -56,10 +56,8 @@ function reverter() {
         });
         array.push(mapped.join(""));
     }
-    // return array;
     return array.join("\n").split("*****");
 }
-// console.log(reverter());
 
 function finalMaps() {
     mapArray = [];
@@ -73,14 +71,8 @@ function finalMaps() {
             mapArray[i] = mapArray[i].slice(1);
         }
     }
-
     return mapArray;
 }
-
-console.log(finalMaps()[1]);
-
-// console.log(width, height, holes, balls, positionY, positionX);
-
 function printinfo(i) {
     const width = Math.max(...finalMaps()[i].map((line) => line.length));
     const height = finalMaps()[i].length;
