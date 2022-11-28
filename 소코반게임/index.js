@@ -1,18 +1,19 @@
 const fs = require("fs");
 let input = fs.readFileSync("./소코반게임/map.txt").toString().split("\n");
+//++수정할 부분//
+// 1. converter랑 reverter 같이 쓸수있게 호환성 높이기?
+//텍스트파일의 입력값들을 한 줄씩 읽으면서 for루프 통해 변환기로 변환, stage부분은 filter사용하여 제외시키기, 이후 리턴
 
-console.log(input.length);
 function converter() {
     const array = [];
     for (let i = 0; i < input.length; i++) {
         let mapped = [...input[i]].map((item) => {
             return converterReference(item);
         });
-        array.push(mapped);
+        if (mapped[0] !== "S") array.push(mapped);
     }
     return array;
 }
-
 function converterReference(i) {
     if (i === "#") {
         return 0;
@@ -28,20 +29,6 @@ function converterReference(i) {
         return i;
     }
 }
-console.log(converter());
-
-function reverter() {
-    const converted = converter();
-    const array = [];
-    for (let i = 0; i < converted.length; i++) {
-        let mapped = [...converted[i]].map((item) => {
-            return reverterReference(item);
-        });
-        // const toPush = mapped.join("")
-        array.push(mapped.join(""));
-    }
-    return array.join("\n");
-}
 
 function reverterReference(i) {
     if (i === 0) {
@@ -53,18 +40,75 @@ function reverterReference(i) {
     } else if (i === 3) {
         return "P";
     } else if (i === 4) {
-        return " ";
+        //
+        return "*";
     } else {
         return i;
     }
 }
-console.log(reverter());
 
-// function printinfo() {
-//     return `가로크기 : ${1 + 2}
-// 세로크기 : ${1}
-// 구멍의 수 : ${1}
-// 공의 수 : ${1}
-// 플레이어 위치 ${1}`;
-// }
-// console.log(printinfo());
+function reverter() {
+    const converted = converter();
+    const array = [];
+    for (let i = 0; i < converted.length; i++) {
+        let mapped = [...converted[i]].map((item) => {
+            return reverterReference(item);
+        });
+        array.push(mapped.join(""));
+    }
+    // return array;
+    return array.join("\n").split("*****");
+}
+// console.log(reverter());
+
+function finalMaps() {
+    mapArray = [];
+    for (let i = 0; i < reverter().length; i++) {
+        mapArray.push(reverter()[i].split("\n"));
+    }
+    for (let i = 0; i < mapArray.length; i++) {
+        if (i === 0) {
+            mapArray[0] = mapArray[0].slice(0, -1);
+        } else {
+            mapArray[i] = mapArray[i].slice(1);
+        }
+    }
+
+    return mapArray;
+}
+
+console.log(finalMaps()[1]);
+
+// console.log(width, height, holes, balls, positionY, positionX);
+
+function printinfo(i) {
+    const width = Math.max(...finalMaps()[i].map((line) => line.length));
+    const height = finalMaps()[i].length;
+    const holes = finalMaps()
+        [i].map((line) => [...line].filter((str) => str === "o").length)
+        .reduce((a, b) => a + b, 0);
+    const balls = finalMaps()
+        [i].map((line) => [...line].filter((str) => str === "O").length)
+        .reduce((a, b) => a + b, 0);
+    const positionY = finalMaps()[i].findIndex((line) => line.includes("P"));
+    const positionX = [...finalMaps()[i][positionY]].findIndex(
+        (str) => str === "P"
+    );
+
+    return `가로크기 : ${width}
+세로크기 : ${height}
+구멍의 수 : ${holes}
+공의 수 : ${balls}
+플레이어 위치 (${positionY + 1}, ${positionX + 1})`;
+}
+function paintResult() {
+    //for문으로 감싸기, 각 i마다 결과 페인팅하도록 루프 돌리기
+    for (i = 0; i < finalMaps().length; i++) {
+        console.log(`Stage ${i + 1}\n`);
+        // console.log(reverter()[i].join("") + "\n");
+        console.log(finalMaps()[i].join("\n") + "\n");
+        console.log(printinfo(i) + "\n");
+    }
+}
+
+paintResult();
