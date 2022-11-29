@@ -55,8 +55,7 @@ function paintMap(i) {
         return paintD(currentMap);
     }
 }
-
-///////======== Moving the position of P ============/////////
+//======== P의 위치 이동시키는 함수세트 ============//
 //오른쪽 한칸 이동
 function paintD(map) {
     let x = currentPosition(map)[0]; //3
