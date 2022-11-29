@@ -29,7 +29,7 @@ function finalAnswer() {
     }
     return answer;
 }
-// const answer = finalAnswer();
+const answer = finalAnswer();
 //밖에서 랜덤넘버를 만든다음 모듈 안에서 이를 호출하여 이벤트 시행 시 실행되게 함.
 rl.setPrompt(`숫자를 입력하세요 :`);
 rl.prompt();
