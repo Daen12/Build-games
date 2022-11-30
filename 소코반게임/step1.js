@@ -1,5 +1,8 @@
 const fs = require("fs");
-let input = fs.readFileSync("./소코반게임/map.txt").toString().split("\n");
+let input = fs
+    .readFileSync("./소코반게임/map_step1&2.txt")
+    .toString()
+    .split("\n");
 //++수정할 부분//
 // 1. converter랑 reverter 같이 쓸수있게 호환성 높이기?
 //텍스트파일의 입력값들을 한 줄씩 읽으면서 for루프 통해 변환기로 변환, stage부분은 filter사용하여 제외시키기, 이후 리턴
@@ -58,7 +61,7 @@ function reverter() {
     }
     return array.join("\n").split("*****");
 }
-
+// console.log(reverter());
 function finalMaps() {
     mapArray = [];
     for (let i = 0; i < reverter().length; i++) {
@@ -73,6 +76,7 @@ function finalMaps() {
     }
     return mapArray;
 }
+console.log(finalMaps());
 function printinfo(i) {
     const width = Math.max(...finalMaps()[i].map((line) => line.length));
     const height = finalMaps()[i].length;

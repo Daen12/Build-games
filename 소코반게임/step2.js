@@ -6,7 +6,7 @@ const rl = readline.createInterface({
     output: process.stdout,
 });
 const startMap = fs
-    .readFileSync("./소코반게임/map.txt")
+    .readFileSync("./소코반게임/map_step1&2.txt")
     .toString()
     .split("\n")
     .slice(6);
