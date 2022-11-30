@@ -43,7 +43,7 @@ function currentPosition(map) {
 }
 // console.log(currentPosition(currentMap));
 var turn = 0;
-function moveCheck(currentMap, i) {
+function moveCheck(i) {
     turn++;
     [x, y] = currentPosition(currentMap);
     console.log(x, y);
@@ -97,14 +97,14 @@ function moveCheck(currentMap, i) {
 function moveCommand(i) {
     [w, a, s, d] = [0, 1, 2, 3]; //위, 왼쪽, 아래, 오른쪽
     if (i === "w") {
-        moveCheck(currentMap, w);
+        moveCheck(w);
         // console.log(turn)
     } else if (i === "a") {
-        moveCheck(currentMap, w);
+        moveCheck(a);
     } else if (i === "s") {
-        moveCheck(currentMap, s);
+        moveCheck(s);
     } else if (i === "d") {
-        moveCheck(currentMap, w);
+        moveCheck(d);
     } else {
         console.log(" *** !Invalid Input! *** ");
     }
