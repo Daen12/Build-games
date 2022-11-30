@@ -1,4 +1,3 @@
-// - 0 상태의 o를 밀어내면 다시 o와 O로 분리된다.
 // - 모든 o를 O자리에 이동시키면 클리어 화면을 표시하고 다음 스테이지로 표시한다.
 // - 주어진 모든 스테이지를 클리어시 축하메시지를 출력하고 게임을 종료한다.
 
@@ -15,20 +14,32 @@
 
 //Prompt 부분 : 알파벳을 몇개 쓰든 상관없이,
 //라인 들어올때마다 맵 바꾸어 출력.
-//o이 남아있으면 'Keep trying!'
 //없으면 종료조건 만족하므로 '빠밤! stage1 클리어!'
-//q 입력해도 종료시키기
 const fs = require("fs");
 const readline = require("readline");
 const rl = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
 });
-const stageMap = fs
-    .readFileSync("./소코반게임/map.txt")
-    .toString()
-    .split("\n")
-    .slice(1, 7);
+const map = fs.readFileSync("./소코반게임/map.txt", "utf8").split("=====");
+function mapList() {
+    const arr = [];
+    map.forEach((map) => arr.push(map.split("\n")));
+    const mapWithoutTitle = arr.map((map) =>
+        map.filter((line) => line[0] !== "S")
+    );
+    const finalMap = mapWithoutTitle.map((map, idx) => {
+        if (idx === 0) {
+            return map.slice(0, -1);
+        } else if (idx === mapWithoutTitle.length - 1) {
+            return map.slice(1);
+        } else {
+            return map.slice(1, -1);
+        }
+    });
+    return finalMap;
+}
+const stageMap = mapList()[1];
 console.log(stageMap);
 const currentMap = stageMap.map((line) => {
     return line.split("");
@@ -37,7 +48,7 @@ const currentMap = stageMap.map((line) => {
 
 // input에 따른 출력 하기
 console.log(" 소코반의 세계에 오신 것을 환영합니다! " + "\n");
-console.log("Stage 1" + "\n" + stageMap.join("\n") + "\n");
+console.log("Stage N" + "\n" + stageMap.join("\n") + "\n");
 rl.prompt();
 rl.setPrompt("> Sokoban : ");
 
@@ -45,6 +56,9 @@ rl.on("line", function (line) {
     const command = String(line).toLowerCase();
     if (command === "q") {
         rl.close();
+    }
+    if (command === "r") {
+        rl.prompt();
     }
     async function inputTest() {
         // command = command.toLowerCase();
@@ -100,6 +114,7 @@ function moveCheck(i) {
         [1, 0],
         [0, 1],
     ];
+    //특정 방향의 다음좌표, 다다음좌표, 다다다음좌표 미리 계산해서 변수 할당
     const nextX1 = x + movescale[i][0];
     const nextY1 = y + movescale[i][1];
     const nextX2 = nextX1 + movescale[i][0];
