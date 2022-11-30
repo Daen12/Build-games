@@ -28,15 +28,7 @@ const stageMap = fs
 // console.log(stageMap);
 
 // input에 따른 출력 하기
-function inputTest() {
-    const input = "aass";
-    for (let i = 0; i < input.length; i++) {
-        moveCommand(input[i], currentMap);
-    }
-    console.log(currentMap);
-    console.log(turn);
-}
-inputTest();
+
 const currentMap = stageMap.map((line) => {
     return line.split("");
 });
@@ -50,7 +42,7 @@ function currentPosition(map) {
     return [n, m];
 }
 // console.log(currentPosition(currentMap));
-let turn = 0;
+var turn = 0;
 function moveCheck(currentMap, i) {
     turn++;
     [x, y] = currentPosition(currentMap);
@@ -98,21 +90,37 @@ function moveCheck(currentMap, i) {
 // moveCheck(currentMap, 1);
 // moveCheck(currentMap, 1);
 // moveCheck(currentMap, 2);
-// moveCheck(currentMap, 2);
-// moveCheck(currentMap, 2);
+// // moveCheck(currentMap, 2);
+// // moveCheck(currentMap, 2);
+// console.log(currentMap);
 
-function moveCommand(i, currentMap) {
+function moveCommand(i) {
     [w, a, s, d] = [0, 1, 2, 3]; //위, 왼쪽, 아래, 오른쪽
     if (i === "w") {
-        console.log(moveCheck(currentMap, w));
+        moveCheck(currentMap, w);
         // console.log(turn)
     } else if (i === "a") {
-        console.log(moveCheck(currentMap, w));
+        moveCheck(currentMap, w);
     } else if (i === "s") {
-        console.log(moveCheck(currentMap, s));
+        moveCheck(currentMap, s);
     } else if (i === "d") {
-        console.log(moveCheck(currentMap, w));
+        moveCheck(currentMap, w);
     } else {
         console.log(" *** !Invalid Input! *** ");
     }
 }
+
+async function inputTest() {
+    const input = "aass";
+    for (let i = 0; i < input.length; i++) {
+        moveCommand(input[i]);
+    }
+    return currentMap;
+}
+// console.log(inputTest());
+
+inputTest().then(console.log);
+//     // console.log(currentMap); //await?
+//     // console.log(turn); //await?
+// }
+// inputTest();
