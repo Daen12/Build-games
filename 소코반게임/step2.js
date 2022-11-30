@@ -16,6 +16,7 @@ console.log("Stage 2" + "\n" + "\n" + startMap.join("\n") + "\n");
 rl.setPrompt("> Sokoban Start : ");
 rl.prompt();
 rl.on("line", function (line) {
+    //dda
     const command = String(line);
     if (command === "q") {
         rl.close();

@@ -41,15 +41,15 @@ function mapList() {
     return finalMap;
 }
 const stageMap = mapList()[0];
-// console.log(stageMap);
+console.log(stageMap);
 const currentMap = stageMap.map((line) => {
     return line.split("");
 });
-// console.log(currentMap);
+console.log(currentMap);
 
 // input에 따른 출력 하기
 console.log(" 소코반의 세계에 오신 것을 환영합니다! " + "\n");
-console.log("Stage N" + "\n" + stageMap.join("\n") + "\n");
+console.log("Stage " + "\n" + stageMap.join("\n") + "\n");
 rl.prompt();
 rl.setPrompt("> Sokoban : ");
 
