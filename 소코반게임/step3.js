@@ -14,7 +14,7 @@
 
 //Prompt 부분 : 알파벳을 몇개 쓰든 상관없이,
 //라인 들어올때마다 맵 바꾸어 출력.
-//없으면 종료조건 만족하므로 '빠밤! stage1 클리어!'
+//없으면 종료조건 만족하므로 'stage N 클리어!' 표시하기
 const fs = require("fs");
 const readline = require("readline");
 const rl = readline.createInterface({
@@ -28,6 +28,7 @@ function mapList() {
     const mapWithoutTitle = arr.map((map) =>
         map.filter((line) => line[0] !== "S")
     );
+    //split해서 앞뒤에 공백 생긴거 치워주기
     const finalMap = mapWithoutTitle.map((map, idx) => {
         if (idx === 0) {
             return map.slice(0, -1);
@@ -39,8 +40,8 @@ function mapList() {
     });
     return finalMap;
 }
-const stageMap = mapList()[1];
-console.log(stageMap);
+const stageMap = mapList()[0];
+// console.log(stageMap);
 const currentMap = stageMap.map((line) => {
     return line.split("");
 });
