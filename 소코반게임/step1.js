@@ -61,6 +61,7 @@ function reverter() {
     }
     return array.join("\n").split("*****");
 }
+console.log(reverter());
 // console.log(reverter());
 function finalMaps() {
     mapArray = [];

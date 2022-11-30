@@ -1,25 +1,32 @@
-const readline = require("readline");
 const fs = require("fs");
+const map = fs.readFileSync("./소코반게임/map.txt", "utf8").split("=====");
+function mapList() {
+    const arr = [];
+    map.forEach((map) => arr.push(map.split("\n")));
+    return arr.filter((line) => line[0] !== "S");
+    // return arr;
+}
+console.log(mapList());
 
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-});
-console.log(currentMap);
-rl.setPrompt("> Sokoban Start : ");
-rl.prompt();
-rl.on("line", function (line) {
-    const command = String(line);
-    if (command === "q") {
-        rl.close();
-    }
-    for (let i = 0; i < command.length; i++) {
-        moveCommand(command[i], currentMap);
-    }
-    //o이 없을 때 종료조건생성
-    rl.prompt();
-});
-rl.on("close", function () {
-    console.log("************" + "\n" + "* Game End *" + "\n" + "************");
-    process.exit();
-});
+// [
+//     ["#####", "#OoP#", "#####"],
+//     [
+//         "  #######",
+//         "###  O  ###",
+//         "#    o    #",
+//         "# Oo P oO #",
+//         "###  o  ###",
+//         " #   O  # ",
+//         " ########",
+//     ],
+// ][
+//     ("#####\n#OoP#\n#####\n",
+//     "\n" +
+//         "  #######\n" +
+//         "###  O  ###\n" +
+//         "#    o    #\n" +
+//         "# Oo P oO #\n" +
+//         "###  o  ###\n" +
+//         " #   O  # \n" +
+//         " ########")
+// ];
