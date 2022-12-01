@@ -1,34 +1,10 @@
 const { log } = console;
 
-class Wordplay {
+class Word_Shift {
     constructor() {
-        // this.variable = [word, num, direction] ;= [input[0], input[1], input[2]]
-    }
-    moveWords(line) {
-        const splitted = line.split(" ");
-        if (
-            this.isWord(splitted[0]) &&
-            this.isNumber(splitted[1]) &&
-            this.hasDirection(splitted[2])
-        ) {
-        }
-    }
-    isWord(splitted) {
-        const alphabet = new RegExp();
-        alphabet.test(splitted);
-    }
-    isNumber(splitted) {
-        const numberCheck =
-            splitted.isNumber && 100 <= splitted && splitted < 100;
-        return numberCheck;
-        //NaN이 아니면서 100~100사이에 있어야 함.
-    }
-    hasDirection(line) {
-        //r또는 l이어야 함.
-        //추가로 lowercase() 이후 반환해주기
-    }
-    errorMsg(i) {
-        log(`${i}가 제대로 입력되지 않았습니다.`);
+        this.word = "";
+        this.num = 0;
+        this.direction = "";
     }
     gameStart() {
         this.setReadLine();
@@ -41,11 +17,12 @@ class Wordplay {
         });
     }
     inputProcess() {
-        this.readline.setPrompt("문자를 입력하세요 : ");
+        this.readline.setPrompt("> 입력하세요 : ");
         this.readline.prompt();
         this.readline.on("line", function (line) {
             //여기서 들어온 라인을 분석하는 함수를 실행
-
+            //근데 this 함수앞에 안붙이면 어케 다른지??
+            this.setInput(line);
             // this.readline.prompt();
             this.readline.close();
         });
@@ -53,9 +30,84 @@ class Wordplay {
             process.exit();
         });
     }
+    setInput(line) {
+        const splitted = line.split(" ");
+        this.word = splitted[0];
+        this.num = splitted[1];
+        this.direction = splitted[2].toUpperCase();
+        this.moveWords();
+    }
+    moveWords() {
+        // this.setCommand(line);
+        if (
+            this.isWord(word) &&
+            this.isInteger(num) &&
+            this.hasDirection(direction)
+        ) {
+            this.selectFunction();
+        } else {
+            // 어떤 부분이 잘못 입력되었는지에 따라 에러메세지 다르게 반환 -> how?
+            return this.errorMsg();
+        }
+    }
+
+    selectFunction() {
+        //방향이 L이면서 숫자가 양수 = 방향이 R이면서 숫자가 음수
+        //방향이 L이면서 숫자가 음수 = 방향이 R이면서 숫자가 양수
+        // ==> 따라서 두가지 경우만 만들면 됨.
+        // switch-case 사용해보기? => expression이 아니라 불가능...
+
+        if (this.direction === "L") {
+            if (this.num > 0) {
+                console.log(leftPositive());
+            } else if (this.num <= 0) {
+                console.log(leftNegative());
+            }
+        }
+        if (this.direction === "R") {
+            if (this.num > 0) {
+                console.log(leftNegative());
+            } else if (this.num <= 0) {
+                console.log(leftPositive());
+            }
+        }
+    }
+
+    leftPositive() {
+        let result = this.word.split("");
+        for (let i = 0; i < this.num; i++) {
+            result.push(input.shift());
+        }
+        return result.join("");
+    }
+    leftNegative() {
+        let result = input.split("");
+        for (let i = 0; i < this.num; i++) {
+            result.splice(0, 0, result.pop());
+        }
+        return result.join("");
+    }
+    isWord(word) {
+        //잉글리쉬만
+        const alphabet = new RegExp("a-z", "i");
+        return alphabet.test(word);
+    }
+    isInteger(num) {
+        //NaN이 아니면서 100~100사이에 있어야 함.
+        const numberCheck = Number.isInteger(num) && 100 <= num && num < 100;
+        return numberCheck;
+    }
+    hasDirection(direction) {
+        //r또는 l이어야 함.
+        return direction === "R" || "L";
+    }
+    errorMsg() {
+        console.log(`입력값제대로 입력되지 않았습니다.`);
+        this.readline.prompt();
+    }
 }
-const wordPlay = new Wordplay();
+const wordShifter = new Word_Shift();
 // const line = "apple 3 L";
 // const input = line.split(" ");
 
-wordPlay.gameStart();
+wordShifter.gameStart();
