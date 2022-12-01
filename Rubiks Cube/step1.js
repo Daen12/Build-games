@@ -19,10 +19,10 @@ class Word_Shift {
     inputProcess() {
         this.readline.setPrompt("> 입력하세요 : ");
         this.readline.prompt();
-        this.readline.on("line", function (line) {
+        this.readline.on("line", (line) => {
             //여기서 들어온 라인을 분석하는 함수를 실행
             //근데 this 함수앞에 안붙이면 어케 다른지??
-            this.setInput(line);
+            this.setInput(String(line));
             // this.readline.prompt();
             this.readline.close();
         });
@@ -33,16 +33,17 @@ class Word_Shift {
     setInput(line) {
         let splitted = line.split(" ");
         this.word = splitted[0];
-        this.num = splitted[1];
+        this.num = Number(splitted[1]);
         this.direction = splitted[2].toUpperCase();
         this.moveWords();
+        // console.log(this.word, this.num, this.direction);
     }
     moveWords() {
-        // this.setCommand(line);
+        // this.setInput(line);
         if (
-            this.isWord(word) &&
-            this.isInteger(num) &&
-            this.hasDirection(direction)
+            this.isWord(this.word) &&
+            this.isInteger(this.num) &&
+            this.hasDirection(this.direction)
         ) {
             this.selectFunction();
         } else {
@@ -59,16 +60,18 @@ class Word_Shift {
 
         if (this.direction === "L") {
             if (this.num > 0) {
-                console.log(leftPositive());
+                console.log(this.leftPositive());
             } else if (this.num <= 0) {
-                console.log(leftNegative());
+                this.num = Math.abs(this.num);
+                console.log(this.leftNegative());
             }
         }
         if (this.direction === "R") {
             if (this.num > 0) {
-                console.log(leftNegative());
+                console.log(this.leftNegative());
             } else if (this.num <= 0) {
-                console.log(leftPositive());
+                this.num = Math.abs(this.num);
+                console.log(this.leftPositive());
             }
         }
     }
@@ -76,12 +79,12 @@ class Word_Shift {
     leftPositive() {
         let result = this.word.split("");
         for (let i = 0; i < this.num; i++) {
-            result.push(input.shift());
+            result.push(result.shift());
         }
         return result.join("");
     }
     leftNegative() {
-        let result = input.split("");
+        let result = this.word.split("");
         for (let i = 0; i < this.num; i++) {
             result.splice(0, 0, result.pop());
         }
@@ -90,7 +93,7 @@ class Word_Shift {
     isWord(word) {
         //잉글리쉬만
         // const alphabet = new RegExp("a-z", "i");
-        const alphabet = /a-z/i;
+        const alphabet = /[a-z]/i;
         return alphabet.test(word);
     }
     isInteger(num) {
@@ -100,7 +103,7 @@ class Word_Shift {
     }
     hasDirection(direction) {
         //r또는 l이어야 함.
-        return direction === "R" || "L";
+        return direction === "R" || direction === "L";
     }
     errorMsg() {
         console.log(`입력값이 제대로 입력되지 않았습니다.`);
