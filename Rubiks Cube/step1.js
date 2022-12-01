@@ -35,7 +35,7 @@ class Word_Shift {
         this.word = splitted[0];
         this.num = splitted[1];
         this.direction = splitted[2].toUpperCase();
-        return this.moveWords();
+        this.moveWords();
     }
     moveWords() {
         // this.setCommand(line);
@@ -95,7 +95,7 @@ class Word_Shift {
     }
     isInteger(num) {
         //NaN이 아니면서 100~100사이에 있어야 함.
-        const numberCheck = Number.isInteger(num) && 100 <= num && num < 100;
+        const numberCheck = Number.isInteger(num) && -100 <= num && num < 100;
         return numberCheck;
     }
     hasDirection(direction) {
