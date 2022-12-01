@@ -1,5 +1,3 @@
-// const { log } = console;
-
 class Word_Shift {
     constructor() {
         this.word = "";
@@ -20,10 +18,7 @@ class Word_Shift {
         this.readline.setPrompt("> 입력하세요 : ");
         this.readline.prompt();
         this.readline.on("line", (line) => {
-            //여기서 들어온 라인을 분석하는 함수를 실행
-            //근데 this 함수앞에 안붙이면 어케 다른지??
             this.setInput(String(line));
-            // this.readline.prompt();
             this.readline.close();
         });
         this.readline.on("close", function () {
@@ -36,10 +31,8 @@ class Word_Shift {
         this.num = Number(splitted[1]);
         this.direction = splitted[2].toUpperCase();
         this.moveWords();
-        // console.log(this.word, this.num, this.direction);
     }
     moveWords() {
-        // this.setInput(line);
         if (
             this.isWord(this.word) &&
             this.isInteger(this.num) &&
@@ -47,7 +40,6 @@ class Word_Shift {
         ) {
             this.selectFunction();
         } else {
-            // 어떤 부분이 잘못 입력되었는지에 따라 에러메세지 다르게 반환 -> how?
             return this.errorMsg();
         }
     }
@@ -56,8 +48,6 @@ class Word_Shift {
         //방향이 L이면서 숫자가 양수 = 방향이 R이면서 숫자가 음수
         //방향이 L이면서 숫자가 음수 = 방향이 R이면서 숫자가 양수
         // ==> 따라서 두가지 경우만 만들면 됨.
-        // switch-case 사용해보기? => expression이 아니라 불가능...
-
         if (this.direction === "L") {
             if (this.num > 0) {
                 console.log(this.leftPositive());
@@ -92,7 +82,6 @@ class Word_Shift {
     }
     isWord(word) {
         //잉글리쉬만
-        // const alphabet = new RegExp("a-z", "i");
         const alphabet = /[a-z]/i;
         return alphabet.test(word);
     }
@@ -110,8 +99,6 @@ class Word_Shift {
         this.readline.prompt();
     }
 }
-const wordShifter = new Word_Shift();
-// const line = "apple 3 L";
-// const input = line.split(" ");
 
+const wordShifter = new Word_Shift();
 wordShifter.gameStart();
