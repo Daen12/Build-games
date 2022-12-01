@@ -1,4 +1,4 @@
-const { log } = console;
+// const { log } = console;
 
 class Word_Shift {
     constructor() {
@@ -31,11 +31,11 @@ class Word_Shift {
         });
     }
     setInput(line) {
-        const splitted = line.split(" ");
+        let splitted = line.split(" ");
         this.word = splitted[0];
         this.num = splitted[1];
         this.direction = splitted[2].toUpperCase();
-        this.moveWords();
+        return this.moveWords();
     }
     moveWords() {
         // this.setCommand(line);
@@ -89,7 +89,8 @@ class Word_Shift {
     }
     isWord(word) {
         //잉글리쉬만
-        const alphabet = new RegExp("a-z", "i");
+        // const alphabet = new RegExp("a-z", "i");
+        const alphabet = /a-z/i;
         return alphabet.test(word);
     }
     isInteger(num) {
@@ -102,7 +103,7 @@ class Word_Shift {
         return direction === "R" || "L";
     }
     errorMsg() {
-        console.log(`입력값제대로 입력되지 않았습니다.`);
+        console.log(`입력값이 제대로 입력되지 않았습니다.`);
         this.readline.prompt();
     }
 }
