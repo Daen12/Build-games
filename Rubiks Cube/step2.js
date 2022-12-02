@@ -28,6 +28,7 @@ function sortInput(line) {
 }
 function selectMove(command) {
     command = command.toUpperCase();
+    // 얘네 키값이 따옴표가 불규칙함.
     const func = {
         U: () => {
             pushLeft(cube[0]);
