@@ -1,5 +1,3 @@
-const { read } = require("fs");
-
 const readline = require("readline").createInterface({
     input: process.stdin,
     output: process.stdout,
@@ -15,13 +13,7 @@ function gameStart() {
     readline.setPrompt("> CUBE : ");
     readline.prompt();
     readline.on("line", function (line) {
-        //q가 입력되면 대소문자 상관없이 종료
-        // if (String(line).toUpperCase === "Q") {
-        //     readline.close();
-        // }
-        //입력값을 받아서 처리
         sortInput(line);
-        // readline.close();
     });
     readline.on("close", function () {
         console.log("Bye~");
@@ -96,5 +88,5 @@ function paintResult(command) {
     const wholeCube = cube.map((line) => line.join(" ")).join("\n");
     console.log(command + "\n" + wholeCube + "\n");
 }
-// test box //
+// test line //
 gameStart();
