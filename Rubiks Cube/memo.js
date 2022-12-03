@@ -15,9 +15,10 @@ const readline = require("readline").createInterface({
     input: process.stdin,
     output: process.stdout,
 });
+//전역으로 쓰지 않으려면.. 클래스로 만들어야???
+const startTime = new Date().getTime() / 1000;
+
 function gameStart() {
-    // const startTime = new Date().toTimeString().slice(0, 8);
-    console.time("경과 시간 : ");
     spreadCube();
     readline.setPrompt("> CUBE : ");
     readline.prompt();
@@ -28,12 +29,19 @@ function gameStart() {
         console.log(line);
     });
     readline.on("close", function () {
-        // const endTime = new Date().toTimeString().slice(0, 8);
-        console.timeEnd("경과 시간 : ");
-        // console.log("경과 시간 : ", startTime - endTime);
+        measureTime();
         console.log("이용해주셔서 감사합니다. 뚜뚜뚜.");
         process.exit();
     });
+}
+function measureTime() {
+    const endTime = new Date().getTime() / 1000;
+    const timeInSeconds = Math.round(endTime - startTime);
+    const minute = String(parseInt(timeInSeconds / 60));
+    const second = String(timeInSeconds % 60);
+    console.log(
+        `경과시간: ${minute.padStart(2, "0")}:${second.padStart(2, "0")}`
+    );
 }
 function makeCubeFace(i, num) {
     const cubeLine = new Array(num).fill(i); // [B, B, B]
@@ -73,10 +81,6 @@ function mergeFace(array) {
     const merged = array.map((line) => line.join(" ")).join("\n");
     return merged;
 }
-// spreadCube();
 gameStart();
-// const { log } = console;
-// log(new Array(3).fill(["D"]).map((arr) => [...arr].push("B")));
-// const arr = [];
-// arr.push("D");
-// log(arr);
+
+console.log(B);

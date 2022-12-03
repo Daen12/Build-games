@@ -1,18 +1,38 @@
-// const endTime = new Date().toTimeString().slice(0, 8);
-// const startTime = "23:29:42";
-// console.log(endTime);
-// console.log(startTime);
-// for(let i=0; i<startTime.length; i++){
-
-const { time } = require("console");
-
-// }
-
-// const startTime = new Date().getTime() / 1000;
-const startTime = 1669991570.833;
-const endTime = 1669991652.402;
-const timeInSeconds = Math.round(endTime - startTime);
-const minute = parseInt(timeInSeconds / 60);
-const second = timeInSeconds % 60;
-// const fixedSeconds = timeInSeconds.toFixed(0);
-console.log(minute, second);
+function makeCubeFace(i, num) {
+    const cubeLine = new Array(num).fill(i); // [B, B, B]
+    const cubeFace = [cubeLine, cubeLine, cubeLine];
+    return cubeFace;
+}
+// console.log(makeCubeFace("B"));
+function spreadCube() {
+    const B = makeCubeFace("B", 3);
+    const W = makeCubeFace("W", 3);
+    const O = makeCubeFace("O", 3);
+    const G = makeCubeFace("G", 3);
+    const Y = makeCubeFace("Y", 3);
+    const R = makeCubeFace("R", 3);
+    // const space = mergeFace(makeCubeFace("S", 9));
+    console.log(
+        mergeFace(B) +
+            "\n" +
+            "\n" +
+            mergeFace(W) +
+            "\n" +
+            "\n" +
+            mergeFace(O) +
+            "\n" +
+            "\n" +
+            mergeFace(G) +
+            "\n" +
+            "\n" +
+            mergeFace(Y) +
+            "\n" +
+            "\n" +
+            mergeFace(R) +
+            "\n"
+    );
+}
+function mergeFace(array) {
+    const merged = array.map((line) => line.join(" ")).join("\n");
+    return merged;
+}

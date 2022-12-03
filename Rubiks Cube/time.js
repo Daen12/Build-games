@@ -1,8 +1,20 @@
-// const startTime = new Date().getTime() / 1000;
 const startTime = 1669991570.833;
 const endTime = 1669991652.402;
 const timeInSeconds = Math.round(endTime - startTime);
-const minute = parseInt(timeInSeconds / 60);
-const second = timeInSeconds % 60;
+console.log(timeInSeconds);
+const minute = String(parseInt(timeInSeconds / 60));
+const second = String(timeInSeconds % 60);
 // const fixedSeconds = timeInSeconds.toFixed(0);
-console.log(minute, second);
+console.log(minute.padStart(2, "0"));
+console.log(second.padStart(2, "0"));
+
+// const startMinute = new Date().getMinutes().padStart(0, 2);
+// const startSecond = new Date().getSeconds();
+// console.log(startMinute);
+// console.log(startSecond);
+const minutes = String(new Date().getMinutes()).padStart(2, "0");
+const seconds = String(new Date().getSeconds()).padStart(2, "0");
+// console.log(minutes - 11);
+// console.log(seconds);
+const rightnow = new Date().getTime() / 1000;
+console.log(rightnow);
