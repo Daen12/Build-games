@@ -74,9 +74,10 @@ class Rubiks_Cube {
     sortCommand(line) {
         //'가 붙어있으면 그앞의 알파벳에 대한 카운터 실행
         //숫자가 있으면 그 뒤의 알파벳에 대해 숫자만큼 반복 실행.
-        for (let i = 0; i < line.length; i++) {
-            this.selectMove(String(line[i]));
-        }
+        // for (let i = 0; i < line.length; i++) {
+        //     this.selectMove(String(line[i]));
+        // }
+        this.selectMove(String(line));
     }
     selectMove(i) {
         const func = {
@@ -86,10 +87,18 @@ class Rubiks_Cube {
             "U'": () => {
                 this.counterU();
             },
-            // "U'" : () => {this.counterU},
-            // "U'" : () => {this.counterU},
-            // "U'" : () => {this.counterU},
-            // "U'" : () => {this.counterU},
+            F: () => {
+                this.F();
+            },
+            "F'": () => {
+                this.counterF();
+            },
+            D: () => {
+                this.D();
+            },
+            "D'": () => {
+                this.counterD();
+            },
         };
         if (i in func) {
             console.log(i + "\n");
@@ -116,12 +125,40 @@ class Rubiks_Cube {
             this.RIGHT[0],
         ];
     }
-    counterU() {
-        [this.LEFT[0], this.FRONT[0], this.RIGHT[0], this.BACK[0]] = [
-            this.BACK[0],
-            this.LEFT[0],
-            this.FRONT[0],
-            this.RIGHT[0],
+    D() {
+        [this.LEFT[2], this.FRONT[2], this.RIGHT[2], this.BACK[2]] = [
+            this.BACK[2],
+            this.LEFT[2],
+            this.FRONT[2],
+            this.RIGHT[2],
+        ];
+    }
+    counterD() {
+        [this.LEFT[2], this.FRONT[2], this.RIGHT[2], this.BACK[2]] = [
+            this.FRONT[2],
+            this.RIGHT[2],
+            this.BACK[2],
+            this.LEFT[2],
+        ];
+    }
+    F() {
+        this.UP[2] = [this.LEFT[0][2], this.LEFT[1][2], this.LEFT[2][2]];
+        [this.LEFT[0][2], this.LEFT[1][2], this.LEFT[2][2]] = this.DOWN[0];
+        this.DOWN[0] = [this.RIGHT[2][0], this.RIGHT[1][0], this.RIGHT[0][0]];
+        [this.RIGHT[0][0], this.RIGHT[1][0], this.RIGHT[2][0]] = this.UP[2];
+    }
+    counterF() {
+        this.UP[2] = [this.RIGHT[0][0], this.RIGHT[1][0], this.RIGHT[2][0]];
+        [this.RIGHT[0][0], this.RIGHT[1][0], this.RIGHT[2][0]] = [
+            this.DOWN[0][2],
+            this.DOWN[0][1],
+            this.DOWN[0][0],
+        ];
+        this.DOWN[0] = [this.LEFT[0][2], this.LEFT[1][2], this.LEFT[2][2]];
+        [this.LEFT[0][2], this.LEFT[1][2], this.LEFT[2][2]] = [
+            this.UP[2][2],
+            this.UP[2][1],
+            this.UP[2][0],
         ];
     }
 }
