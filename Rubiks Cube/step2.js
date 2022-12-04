@@ -2,6 +2,7 @@ const readline = require("readline").createInterface({
     input: process.stdin,
     output: process.stdout,
 });
+//function!!!
 const cube = [
     ["R", "R", "W"],
     ["G", "C", "W"],
@@ -14,6 +15,7 @@ function gameStart() {
     readline.prompt();
     readline.on("line", function (line) {
         sortInput(line);
+        readline.prompt();
     });
     readline.on("close", function () {
         console.log("Bye~");
@@ -21,6 +23,7 @@ function gameStart() {
     });
 }
 function sortInput(line) {
+    //보완
     const command = String(line).split("");
     for (let i = 0; i < command.length; i++) {
         selectMove(command[i]);
@@ -30,33 +33,15 @@ function selectMove(command) {
     command = command.toUpperCase();
     // 얘네 키값이 따옴표가 불규칙함.
     const func = {
-        U: () => {
-            pushLeft(cube[0]);
-        },
-        "U'": () => {
-            pushRight(cube[0]);
-        },
-        R: () => {
-            pushUp(2);
-        },
-        "R'": () => {
-            pushDown(2);
-        },
-        L: () => {
-            pushDown(0);
-        },
-        "L'": () => {
-            pushUp(0);
-        },
-        B: () => {
-            pushRight(cube[2]);
-        },
-        "B'": () => {
-            pushLeft(cube[2]);
-        },
-        Q: () => {
-            readline.close();
-        },
+        U: () => pushLeft(cube[0]),
+        "U'": () => pushRight(cube[0]),
+        R: () => pushUp(2),
+        "R'": () => pushDown(2),
+        L: () => pushDown(0),
+        "L'": () => pushUp(0),
+        B: () => pushRight(cube[2]),
+        "B'": () => pushLeft(cube[2]),
+        Q: () => readline.close(),
     };
     //예외처리는 여기서 하는게 나을듯
     if (command in func) {
