@@ -1,7 +1,7 @@
 const startTime = 1669991570.833;
 const endTime = 1669991652.402;
-const timeInSeconds = Math.round(endTime - startTime);
 console.log(timeInSeconds);
+const timeInSeconds = Math.round(endTime - startTime);
 const minute = String(parseInt(timeInSeconds / 60));
 const second = String(timeInSeconds % 60);
 // const fixedSeconds = timeInSeconds.toFixed(0);
